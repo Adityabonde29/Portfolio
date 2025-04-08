@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Bonde | Full Stack Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4D44DB;
+            --dark: #1A1A2E;
+            --darker: #16213E;
+            --light: #E6E6FA;
+            --accent: #FF6B6B;
+            --stars: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, var(--darker) 0%, #000000 100%);
+            z-index: -2;
+        }
+
+        /* Stars background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: var(--stars);
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: var(--opacity);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-bottom: 6rem; /* Space for footer */
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .logo span {
+            color: var(--light);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Bento grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .bento-item {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bento-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .bento-item h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bento-item.large {
+            grid-column: span 2;
+        }
+
+        .bento-item.tall {
+            grid-row: span 2;
+        }
+
+        .bento-item.wide {
+            grid-column: span 3;
+        }
+
+        /* Experience items */
+        .experience-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .experience-item .company {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .experience-item .date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .experience-item ul {
+            margin-left: 1.2rem;
+        }
+
+        .experience-item li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background-color: rgba(108, 99, 255, 0.2);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Projects */
+        .project-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .project-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-item .tech-stack {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .project-item p {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--accent);
+        }
+
+        /* Achievements */
+        .achievement-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .achievement-item:last-child {
+            border-bottom: none;
+        }
+
+        .achievement-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .achievement-item p {
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            padding: 2rem;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bento-item.wide {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bento-item.large, .bento-item.wide {
+                grid-column: span 1;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars background -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">Aditya<span>Bonde</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1 class="floating">Full Stack .NET Developer</h1>
+            <p>Building robust web applications with Angular and .NET Core. Passionate about creating efficient, secure, and user-friendly solutions.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Contact Me
+                </a>
+                <a href="Resume_Aditya_Bonde Tesla.pdf" download class="btn btn-outline">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+        </section>
+
+        <section id="experience" class="bento-grid">
+            <div class="bento-item large">
+                <h2><i class="fas fa-briefcase"></i> Experience</h2>
+                
+                <div class="experience-item">
+                    <h3>Full Stack .NET Developer</h3>
+                    <div class="company">LTIMindtree</div>
+                    <div class="date">Oct 2024 – Present | Pune, India</div>
+                    <ul>
+                        <li>Developed and deployed full-stack web applications using Angular for the frontend and .NET Core MVC with Entity Framework Core for the backend.</li>
+                        <li>Designed and implemented RESTful APIs to streamline communication between frontend and backend systems, incorporating connected and disconnected architecture.</li>
+                        <li>Integrated JWT tokens and Auth Guards for secure authentication and authorization mechanisms.</li>
+                    </ul>
+                    <div class="skills-container">
+                        <span class="skill-tag">Angular</span>
+                        <span class="skill-tag">.NET Core</span>
+                        <span class="skill-tag">MVC</span>
+                        <span class="skill-tag">Entity Framework</span>
+                        <span class="skill-tag">SQL Server</span>
+                        <span class="skill-tag">JWT</span>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <h3>Data Analyst Intern</h3>
+                    <div class="company">Central Railway</div>
+                    <div class="date">Dec 2022 – Jan 2023 | Bhusawal, India</div>
+                    <ul>
+                        <li>Developed a 3D model of a 3-phase Traction Motor and analyzed its strength, toughness, and temperature distribution using SolidWorks.</li>
+                        <li>Analyzed large data sets on the Traction Motor performance and environmental impact using Python and Pandas.</li>
+                        <li>Increased productivity by 20% by identifying improvement areas and recommending data-driven solutions.</li>
+                    </ul>
+                    <div class="skills-container">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">PowerBI</span>
+                        <span class="skill-tag">SolidWorks</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-item">
+                <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                <div class="experience-item">
+                    <h3>SIES Graduate School of Technology</h3>
+                    <div class="company">B.E in Computer Engineering</div>
+                    <div class="date">2020 - 2024</div>
+                    <p>CGPA: 8.80/10</p>
+                </div>
+            </div>
+
+            <div class="bento-item tall">
+                <h2><i class="fas fa-code"></i> Technical Skills</h2>
+                <div class="skills-container">
+                    <span class="skill-tag">C#</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">Angular</span>
+                    <span class="skill-tag">.NET Entity Framework</span>
+                    <span class="skill-tag">Tailwind CSS</span>
+                    <span class="skill-tag">Bootstrap</span>
+                    <span class="skill-tag">System Design</span>
+                    <span class="skill-tag">SQL Server</span>
+                    <span class="skill-tag">SolidWorks</span>
+                    <span class="skill-tag">JWT</span>
+                    <span class="skill-tag">AuthGuard</span>
+                    <span class="skill-tag">Git & GitHub</span>
+                    <span class="skill-tag">Jira</span>
+                    <span class="skill-tag">Data Structures</span>
+                    <span class="skill-tag">Algorithms</span>
+                    <span class="skill-tag">Operating Systems</span>
+                    <span class="skill-tag">DBMS</span>
+                    <span class="skill-tag">OOP</span>
+                </div>
+            </div>
+
+            <div id="projects" class="bento-item large">
+                <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+                
+                <div class="project-item">
+                    <h3>TrainingHub</h3>
+                    <div class="tech-stack">Angular, .NET Entity Framework Core, JWT, AuthGuard, SQL Server</div>
+                    <p>Led a team of 7 using Scrum, reducing project delivery time by 50% through effective sprint planning and daily stand-ups.</p>
+                    <p>Designed and implemented the frontend using Angular, ensuring a responsive and user-friendly interface for both admin and user panels.</p>
+                    <p>Developed a .NET Entity Framework Core backend, boosting data processing efficiency by 40% through optimized queries, better database indexing, and asynchronous programming.</p>
+                    <a href="https://github.com/Adityabonde29/TrainingHub/" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+
+            <div id="achievements" class="bento-item">
+                <h2><i class="fas fa-trophy"></i> Achievements</h2>
+                
+                <div class="achievement-item">
+                    <h3><i class="fas fa-medal"></i> First Place in Cognition</h3>
+                    <p>Project presentation competition 2022 held at SIES GST</p>
+                </div>
+                
+                <div class="achievement-item">
+                    <h3><i class="fas fa-code"></i> LeetCode</h3>
+                    <p>Solved 200+ coding problems on LeetCode</p>
+                </div>
+                
+                <div class="achievement-item">
+                    <h3><i class="fas fa-car"></i> BAJA SAE</h3>
+                    <p>1st Place Sales/Marketing (2023), 3rd Place Maneuverability (2023), 5th Overall (Virtuals) (2022), 6th Place 4WD (2021), 8th Place Cost Evaluation (2021)</p>
+                </div>
+                
+                <div class="achievement-item">
+                    <h3><i class="fas fa-truck-monster"></i> ATVC</h3>
+                    <p>1st Place for Cost Evaluation Cheapest ATV (All Terrain Vehicle), 2nd Runner-Up Overall</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">AdityaBonde</div>
+            
+            <div class="footer-links">
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="social-links">
+                <a href="mailto:aditya.bonde29@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/adityabonde" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Adityabonde29" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="tel:+917558391400"><i class="fas fa-phone"></i></a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2024 Aditya Bonde. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 200;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random size between 1px and 3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random opacity and animation duration
+                star.style.setProperty('--opacity', Math.random());
+                star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            createStars();
+        });
+    </script>
+</body>
+</html>
